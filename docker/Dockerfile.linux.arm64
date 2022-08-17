@@ -11,8 +11,8 @@ ARG TARGETARCH
 ARG DRONE_TAG
 
 COPY requirements.txt ./
-RUN pip install -U pip  \
-    && pip install --no-cache-dir -U -r requirements.txt
+RUN pip --user install -U pip  \
+    && pip install --user -U -r requirements.txt
 
 COPY app.py ./app.py
 
