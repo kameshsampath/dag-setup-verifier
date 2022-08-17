@@ -1,9 +1,4 @@
 ---
-## IMPORTANT - update this anchor 
-extra_hosts: &extraHosts
-  # Cluster IP of gitea-http service
-  - "gitea-127.0.0.1.sslip.io:10.43.99.186"
-
 kind: pipeline
 type: kubernetes
 name: "Release Docker Image"
@@ -17,7 +12,7 @@ platform:
   arch: arm64
 
 steps:
-
+  
   - name: publish
     image: plugins/docker:20.13
     pull: if-not-exists
@@ -35,5 +30,9 @@ steps:
         from_secret: image_registry
       repo:
         from_secret: destination_image
-    extra_hosts: *extraHosts
 
+## IMPORTANT - update this when deploying new 
+host_aliases:
+  - ip: 10.43.99.186
+    hostnames:
+      - "gitea-127.0.0.1.sslip.io"
