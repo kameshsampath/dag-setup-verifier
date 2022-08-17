@@ -39,7 +39,7 @@ steps:
         from_secret: image_registry_password
       registry:
         from_secret: image_registry
-      repo: example
+      repo:
         from_secret: destination_image
     extra_hosts: *extraHosts
 
