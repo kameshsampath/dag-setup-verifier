@@ -2,9 +2,7 @@
 ## IMPORTANT - update this anchor 
 extra_hosts: &extraHosts
   # Cluster IP of gitea-http service
-  - "gitea-127.0.0.1.sslip.io:10.43.142.127"
-  # Cluster IP of nexus  service
-  - "nexus.infra:10.43.135.214"
+  - "gitea-127.0.0.1.sslip.io:10.43.99.186"
 
 kind: pipeline
 type: kubernetes
