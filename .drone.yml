@@ -1,15 +1,17 @@
 ---
 kind: pipeline
 type: kubernetes
-name: "Release Docker Image"
+name: default
 
-trigger:
-  branch:
-    - main
-
+# remove this section if your CPU is amd64
 platform:
   os: linux
   arch: arm64
+
+# Trigger only main
+trigger:
+  branch:
+  - main
 
 steps:
   
@@ -31,8 +33,10 @@ steps:
       repo:
         from_secret: destination_image
 
-## IMPORTANT - update this when deploying new 
+# Ensuring the local gitea is reachable
 host_aliases:
-  - ip: 10.43.99.186
-    hostnames:
-      - "gitea-127.0.0.1.sslip.io"
+   # IMPORTANT: update to match your settings
+   # export GITEA_HTTP_CLUSTER_IP=$(kubectl get -n default svc gitea-http -ojsonpath='{.spec.clusterIP}')
+ - ip: 10.43.99.186
+   hostnames:
+     - gitea-127.0.0.1.sslip.io
