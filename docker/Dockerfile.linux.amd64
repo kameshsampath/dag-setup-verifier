@@ -12,7 +12,7 @@ ARG DRONE_TAG
 
 COPY requirements.txt ./
 RUN pip install --user  -U pip  \
-    && pip install --user --trusted-host pypi.python.org --no-cache-dir -U -r requirements.txt
+    && pip install --user --trusted-host pypi.org --no-cache-dir -U -r requirements.txt
 
 COPY app.py ./app.py
 
