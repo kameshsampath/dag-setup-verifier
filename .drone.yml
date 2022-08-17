@@ -16,11 +16,8 @@ platform:
   os: linux
   arch: arm64
 
-clone:
-  disable: true
-
 steps:
-  
+
   - name: publish
     image: plugins/docker:20.13
     pull: if-not-exists
