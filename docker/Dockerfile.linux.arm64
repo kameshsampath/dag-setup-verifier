@@ -16,7 +16,7 @@ WORKDIR /usr/src/myapp
 COPY app.java ./app
 COPY jbang /usr/bin
 
-RUN sed -i -E "s|(//REPOS)(.*)|\1${MAVEN_REPOS}|" app
+RUN sed -i -E "s|(//REPOS)(.*)|\1${MAVEN_REPOS}\2|" app
 
 RUN apt update \
     && apt install -y curl \
