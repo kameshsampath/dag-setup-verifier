@@ -33,13 +33,13 @@ steps:
       dockerfile: Dockerfile
       daemon_off: true
       insecure: true
-      username: admin
-        # from_secret: image_registry_user
-      password: admin123
-        # from_secret: image_registry_password
-      registry: nexus.infra:18081
-        # from_secret: image_registry
+      username:
+        from_secret: image_registry_user
+      password:
+        from_secret: image_registry_password
+      registry:
+        from_secret: image_registry
       repo: example
-        # from_secret: destination_image
+        from_secret: destination_image
     extra_hosts: *extraHosts
 
