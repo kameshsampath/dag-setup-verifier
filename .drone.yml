@@ -1,0 +1,45 @@
+---
+## IMPORTANT - update this anchor 
+extra_hosts: &extraHosts
+  # Cluster IP of gitea-http service
+  - "gitea-127.0.0.1.sslip.io:10.43.142.127"
+  # Cluster IP of nexus  service
+  - "nexus.infra:10.43.135.214"
+
+kind: pipeline
+type: kubernetes
+name: "Release Docker Image"
+
+trigger:
+  branch:
+    - main
+
+platform:
+  os: linux
+  arch: arm64
+
+clone:
+  disable: true
+
+steps:
+  
+  - name: publish
+    image: plugins/docker:20.13
+    pull: if-not-exists
+    settings:
+      auto_tag: false
+      auto_tag_suffix: linux-arm64
+      tags: "latest" 
+      dockerfile: Dockerfile
+      daemon_off: true
+      insecure: true
+      username: admin
+        # from_secret: image_registry_user
+      password: admin123
+        # from_secret: image_registry_password
+      registry: nexus.infra:18081
+        # from_secret: image_registry
+      repo: example
+        # from_secret: destination_image
+    extra_hosts: *extraHosts
+

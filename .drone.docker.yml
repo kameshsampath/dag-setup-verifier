@@ -1,0 +1,80 @@
+---
+## IMPORTANT - update this anchor 
+extra_hosts: &extraHosts
+  # Cluster IP of gitea-http service
+  - "gitea-127.0.0.1.sslip.io:10.43.142.127"
+  # Cluster IP of nexus  service
+  - "nexus.infra:10.43.135.214"
+
+kind: pipeline
+type: docker
+name: "Release Docker Image"
+
+trigger:
+  branch:
+    - main
+
+platform:
+  os: linux
+  arch: arm64
+
+clone:
+  disable: true
+
+steps:
+  - name: clone
+    image: alpine/git
+    pull: if-not-exists
+    commands:
+    - git clone http://gitea-127.0.0.1.sslip.io:30950/user-01/drone-quickstart.git .
+    - git checkout 
+    extra_hosts: *extraHosts
+  
+  - name: publish
+    image: plugins/docker:20.13
+    pull: if-not-exists
+    settings:
+      auto_tag: false
+      auto_tag_suffix: linux-arm64
+      tags: "latest" 
+      dockerfile: Dockerfile
+      daemon_off: true
+      insecure: true
+      username: admin
+        # from_secret: image_registry_user
+      password: admin123
+        # from_secret: image_registry_password
+      registry: nexus.infra:18081
+        # from_secret: image_registry
+      repo: example
+        # from_secret: destination_image
+    extra_hosts: *extraHosts
+
+
+  # - name: build-image
+  #   image: gcr.io/kaniko-project/executor:debug
+  #   pull: if-not-exists
+  #   commands:
+  #     - mkdir -p /kaniko/.docker
+  #     - echo "{\"auths\":{\"$IMAGE_REGISTRY\":{\"auth\":\"$(printf "%s:%s" "$IMAGE_REGISTRY_USER" "$IMAGE_REGISTRY_PASSWORD" | base64 -w 0)\"}}}" > /kaniko/.docker/config.json
+  #     - >
+  #       /kaniko/executor 
+  #       --context /drone/src
+  #       --dockerfile Dockerfile
+  #       --destination $IMAGE_REGISTRY/$DESTINATION_IMAGE 
+  #       --customPlatform=linux/amd64
+  #       --customPlatform=linux/arm64
+  #       --insecure
+  #       --skip-tls-verify
+  #       --cache=true
+  #       --use-new-run
+  #   environment:
+  #     DESTINATION_IMAGE:
+  #       from_secret: destination_image
+  #     IMAGE_REGISTRY:
+  #       from_secret: image_registry
+  #     IMAGE_REGISTRY_USER:
+  #       from_secret: image_registry_user
+  #     IMAGE_REGISTRY_PASSWORD:
+  #       from_secret: image_registry_password
+  #   extra_hosts: *extraHosts

@@ -1,0 +1,5 @@
+.env*
+.secret*
+dist
+__pycache__
+.direnv
