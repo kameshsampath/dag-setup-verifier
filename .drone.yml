@@ -31,7 +31,6 @@ steps:
       auto_tag_suffix: linux-arm64
       tags: "latest" 
       dockerfile: Dockerfile
-      daemon_off: true
       insecure: true
       username:
         from_secret: image_registry_user
