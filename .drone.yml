@@ -19,8 +19,6 @@ steps:
     image: plugins/docker:20.13
     pull: if-not-exists
     settings:
-      auto_tag: false
-      auto_tag_suffix: linux-arm64
       tags: "latest" 
       dockerfile: docker/Dockerfile.linux.arm64
       insecure: true
