@@ -18,8 +18,8 @@ COPY jbang /usr/bin
 
 RUN sed -i -E "s|(//REPOS)(.*)|\1${MAVEN_REPOS}\2|" app
 
-RUN apt update \
-    && apt install -y curl \
+RUN apt-get update \
+    && apt-get install -y curl \
     && jbang export portable --verbose app
 
 EXPOSE 8080
