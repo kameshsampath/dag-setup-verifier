@@ -22,6 +22,8 @@ steps:
       tags: "latest" 
       dockerfile: docker/Dockerfile.linux.arm64
       insecure: true
+      build_args:
+        MAVEN_REPOS: "nexus=http://nexus.infra:8081/repository/maven-public/"
       username:
         from_secret: image_registry_user
       password:
