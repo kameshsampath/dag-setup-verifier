@@ -22,7 +22,7 @@ steps:
       auto_tag: false
       auto_tag_suffix: linux-arm64
       tags: "latest" 
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile.linux.arm64
       insecure: true
       username:
         from_secret: image_registry_user
