@@ -10,9 +10,12 @@ WORKDIR /usr/src/app
 ARG TARGETARCH
 ARG DRONE_TAG
 
+ENV http_proxy http://proxy-chain.xxx.com:911/
+ENV https_proxy http://proxy-chain.xxx.com:912/
+
 COPY requirements.txt ./
-RUN pip install --user -U pip  \
-    && pip install --user -U -r requirements.txt
+RUN pip install --user  -U pip  \
+    && pip install --user --no-cache-dir -U -r requirements.txt
 
 COPY app.py ./app.py
 
