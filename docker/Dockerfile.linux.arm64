@@ -16,8 +16,6 @@ WORKDIR /usr/src/myapp
 COPY app.java ./app
 COPY jbang /usr/bin
 
-# RUN sed -i -E "s|(//REPOS)(.*)|\1${MAVEN_REPOS},\2|" app
-
 RUN apt-get update \
     && apt-get install -y curl \
     && jbang export portable --verbose app
