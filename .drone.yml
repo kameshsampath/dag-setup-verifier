@@ -22,7 +22,7 @@ steps:
       tags: "latest" 
       dockerfile: docker/Dockerfile.linux.arm64
       insecure: true
-      mtu: 1450
+      mtu: 1410
       build_args: 
         - "MAVEN_REPOS=nexus=http://nexus.infra:8081/repository/maven-public/"
       username:

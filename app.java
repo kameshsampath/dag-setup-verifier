@@ -1,5 +1,5 @@
 //usr/bin/env jbang "$0" "$@" ; exit $?
-//REPOS nexus
+//REPOS ${env.MAVEN_REPOS}
 //DEPS io.quarkus.platform:quarkus-bom:2.11.2.Final@pom
 //DEPS io.quarkus:quarkus-resteasy-reactive
 //JAVAC_OPTIONS -parameters
